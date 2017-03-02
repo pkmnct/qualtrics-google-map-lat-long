@@ -3,7 +3,7 @@
  *
  * Written by George Walker <george@georgewwalker.com>
  *
- * Last changed Feb. 24, 2017.
+ * Last changed March 2, 2017.
  *
  * This javascript allows a Qualtrics user to collect a lat/long from a
  * Google Map in a survey. To use it, create a new "Text Entry" question,
