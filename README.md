@@ -1,5 +1,8 @@
 # Qualtrics Google Map Lat/Long Collector
 
+## NOTE
+To use the updated code, you must replace it in all questions in your survey. If an older version of the code is running in another question, the map may not display.
+
 #### Getting Started
 Create or open a Qualtrics survey. You must be able to add JavaScript to a question for this code to work (it will not work on trial accounts where this feature is unavailable).
 
