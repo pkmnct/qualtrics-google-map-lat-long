@@ -48,11 +48,11 @@ Qualtrics.SurveyEngine.addOnload(function() {
 
     var mapWidth = "100%";
     var mapHeight = "300px";
-    
+
     var locationInputWidth = "96%";
     var locationInputMargin = "2%";
     var locationInputPadding = "15px";
-    
+
     var enableAutocompleteField = true;
 
 
@@ -61,25 +61,25 @@ Qualtrics.SurveyEngine.addOnload(function() {
 
     // Get the question container and store it in a variable.
     var questionContainer = this.getQuestionContainer();
-    
+
     // Need to be able to access the marker to update it later.
     var marker;
-    
+
     if (enableAutocompleteField) {
-		// Create a search box
-		try {
-			var locationInput = document.createElement('input');
-			locationInput.setAttribute("id", this.questionId + "-locationInput");
-			locationInput.style.width = locationInputWidth;
-			locationInput.style.margin = locationInputMargin;
-			locationInput.style.padding = locationInputPadding;
-			questionContainer.appendChild(locationInput);
-			var locationInputID = this.questionId + "-locationInput";
-		} catch (err) {
-			console.log("Unable to create places autocomplete field. Details: " + err);
-			alert("An error occurred creating the input field.");
-		}
-	}
+        // Create a search box
+        try {
+            var locationInput = document.createElement('input');
+            locationInput.setAttribute("id", this.questionId + "-locationInput");
+            locationInput.style.width = locationInputWidth;
+            locationInput.style.margin = locationInputMargin;
+            locationInput.style.padding = locationInputPadding;
+            questionContainer.appendChild(locationInput);
+            var locationInputID = this.questionId + "-locationInput";
+        } catch (err) {
+            console.log("Unable to create places autocomplete field. Details: " + err);
+            alert("An error occurred creating the input field.");
+        }
+    }
 
     try {
         // Create a map object and append it to the question container.
@@ -104,20 +104,20 @@ Qualtrics.SurveyEngine.addOnload(function() {
     // This function calls itself once per second until the Google Maps API is loaded, then it displays the map.
     function displayMap() {
         try {
-		
-			if (enableAutocompleteField) {
-				var locationAutocomplete = new google.maps.places.Autocomplete(locationInput);
-			
-				// Whenever the inputs change, set the locationLatLong
-				google.maps.event.addListener(locationAutocomplete, 'place_changed', function() {
-					var place = locationAutocomplete.getPlace();
-					var locationLatLong = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
-					marker.setPosition(locationLatLong);
-					map.panTo(locationLatLong);
-					dataBox.value = '{"lat": "' + place.geometry.location.lat() + '", "long": "' + place.geometry.location.lng() + '"}';
-				});
-			}
-		
+
+            if (enableAutocompleteField) {
+                var locationAutocomplete = new google.maps.places.Autocomplete(locationInput);
+
+                // Whenever the inputs change, set the locationLatLong
+                google.maps.event.addListener(locationAutocomplete, 'place_changed', function() {
+                    var place = locationAutocomplete.getPlace();
+                    var locationLatLong = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
+                    marker.setPosition(locationLatLong);
+                    map.panTo(locationLatLong);
+                    dataBox.value = '{"lat": "' + place.geometry.location.lat() + '", "long": "' + place.geometry.location.lng() + '"}';
+                });
+            }
+
             var map = new google.maps.Map(document.getElementById(mapID), {
                 center: {
                     lat: mapCenterLat,
