@@ -3,7 +3,7 @@
  *
  * Written by George Walker <george@georgewwalker.com>
  *
- * Last changed March 6, 2017.
+ * Last changed April 7, 2018.
  *
  * This javascript allows a Qualtrics user to collect a lat/long from a
  * Google Map in a survey. To use it, create a new "Text Entry" question,
@@ -24,9 +24,9 @@ try {
         if (googleMapJS == null) {
             googleMapJS = document.createElement('script');
             if (googleMapAPIKey == "Your Key" || googleMapAPIKey == null) {
-                googleMapJS.src = 'https://maps.googleapis.com/maps/api/js';
+                googleMapJS.src = 'https://maps.googleapis.com/maps/api/js' + "?libraries=places";
             } else {
-                googleMapJS.src = 'https://maps.googleapis.com/maps/api/js?key=' + googleMapAPIKey;
+                googleMapJS.src = 'https://maps.googleapis.com/maps/api/js?key=' + googleMapAPIKey + "&libraries=places>";
             }
             document.head.appendChild(googleMapJS);
         }
@@ -48,6 +48,12 @@ Qualtrics.SurveyEngine.addOnload(function() {
 
     var mapWidth = "100%";
     var mapHeight = "300px";
+    
+    var locationInputWidth = "96%";
+    var locationInputMargin = "2%";
+    var locationInputPadding = "15px";
+    
+    var enableAutocompleteField = true;
 
 
     // Get the data entry box and store it in a variable
@@ -55,6 +61,25 @@ Qualtrics.SurveyEngine.addOnload(function() {
 
     // Get the question container and store it in a variable.
     var questionContainer = this.getQuestionContainer();
+    
+    // Need to be able to access the marker to update it later.
+    var marker;
+    
+    if (enableAutocompleteField) {
+		// Create a search box
+		try {
+			var locationInput = document.createElement('input');
+			locationInput.setAttribute("id", this.questionId + "-locationInput");
+			locationInput.style.width = locationInputWidth;
+			locationInput.style.margin = locationInputMargin;
+			locationInput.style.padding = locationInputPadding;
+			questionContainer.appendChild(locationInput);
+			var locationInputID = this.questionId + "-locationInput";
+		} catch (err) {
+			console.log("Unable to create places autocomplete field. Details: " + err);
+			alert("An error occurred creating the input field.");
+		}
+	}
 
     try {
         // Create a map object and append it to the question container.
@@ -79,6 +104,20 @@ Qualtrics.SurveyEngine.addOnload(function() {
     // This function calls itself once per second until the Google Maps API is loaded, then it displays the map.
     function displayMap() {
         try {
+		
+			if (enableAutocompleteField) {
+				var locationAutocomplete = new google.maps.places.Autocomplete(locationInput);
+			
+				// Whenever the inputs change, set the locationLatLong
+				google.maps.event.addListener(locationAutocomplete, 'place_changed', function() {
+					var place = locationAutocomplete.getPlace();
+					var locationLatLong = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
+					marker.setPosition(locationLatLong);
+					map.panTo(locationLatLong);
+					dataBox.value = '{"lat": "' + place.geometry.location.lat() + '", "long": "' + place.geometry.location.lng() + '"}';
+				});
+			}
+		
             var map = new google.maps.Map(document.getElementById(mapID), {
                 center: {
                     lat: mapCenterLat,
@@ -88,7 +127,7 @@ Qualtrics.SurveyEngine.addOnload(function() {
             });
 
             // Create a new marker in the center of the map.
-            var marker = new google.maps.Marker({
+            marker = new google.maps.Marker({
                 draggable: true,
                 position: {
                     lat: mapCenterLat,
