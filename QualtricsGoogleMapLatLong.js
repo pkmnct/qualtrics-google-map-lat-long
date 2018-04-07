@@ -26,7 +26,7 @@ try {
             if (googleMapAPIKey == "Your Key" || googleMapAPIKey == null) {
                 googleMapJS.src = 'https://maps.googleapis.com/maps/api/js' + "?libraries=places";
             } else {
-                googleMapJS.src = 'https://maps.googleapis.com/maps/api/js?key=' + googleMapAPIKey + "&libraries=places>";
+                googleMapJS.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=' + googleMapAPIKey;
             }
             document.head.appendChild(googleMapJS);
         }
