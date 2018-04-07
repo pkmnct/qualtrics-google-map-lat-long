@@ -2,10 +2,11 @@
  * Qualtrics Google Map Lat/Long Collector
  *
  * Written by George Walker <george@georgewwalker.com>
+ * Get the latest from GitHub: https://github.com/pkmnct/qualtrics-google-map-lat-long/
  *
  * Last changed April 7, 2018.
  *
- * This javascript allows a Qualtrics user to collect a lat/long from a
+ * This JavaScript allows a Qualtrics user to collect a lat/long from a
  * Google Map in a survey. To use it, create a new "Text Entry" question,
  * then add this JavaScript to the question. You can set variables below.
  * These include the lattitude and longitude to center the map at, the
