@@ -1,10 +1,11 @@
 /*
  * Qualtrics Google Map Lat/Long Collector
  *
- * Written by George Walker <george@georgewwalker.com>
- * Get the latest from GitHub: https://github.com/pkmnct/qualtrics-google-map-lat-long/
+ * Written by Carlos Barahona
+ * based most on code writen by George Walker <george@georgewwalker.com>
+ * Get the latest from GitHub: https://github.com/guatemaleco/qualtrics-google-map-lat-long/
  *
- * Last changed April 7, 2018.
+ * Last changed October 13, 2018.
  *
  * This JavaScript allows a Qualtrics user to collect a lat/long from a
  * Google Map in a survey. To use it, create a new "Text Entry" question,
@@ -43,8 +44,10 @@ Qualtrics.SurveyEngine.addOnload(function() {
     // Variables:
     var mapCenterLat = 39.1836;
     var mapCenterLng = -96.5717;
-    var mapZoom = 16; // See https://developers.google.com/maps/documentation/javascript/tutorial#zoom-levels for help.
+    var mapZoom = 11; // See https://developers.google.com/maps/documentation/javascript/tutorial#zoom-levels for help.
     var pinTitle = "Move pin to correct location"; // This is displayed when hovering over the pin on the map.
+    var startPlace = "${loc://PostalCode}";
+    var geocoderRequest = {'address': startPlace};
 
 
     var mapWidth = "100%";
@@ -65,6 +68,11 @@ Qualtrics.SurveyEngine.addOnload(function() {
 
     // Need to be able to access the marker to update it later.
     var marker;
+    
+    if(dataBox.value != ""){
+        startPlace = new google.maps.LatLng(dataBox.value.evalJSON().lat,dataBox.value.evalJSON().long);
+        geocoderRequest = {'location': startPlace};
+    }
 
     if (enableAutocompleteField) {
         // Create a search box
@@ -137,6 +145,20 @@ Qualtrics.SurveyEngine.addOnload(function() {
                 map: map,
                 title: pinTitle
             });
+            
+            //Update marker with IP based location
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode(geocoderRequest, function(results, status) {
+                if (status === 'OK') {
+                    
+                  map.setCenter(results[0].geometry.location);
+                  var latlng = new google.maps.LatLng(results[0].geometry.location.lat(),results[0].geometry.location.lng());
+                  marker.setPosition(latlng);
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+              });
+              
 
             // When the pin is clicked, store the lat/lng
             google.maps.event.addListener(marker, 'click', function(event) {

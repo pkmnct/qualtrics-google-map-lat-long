@@ -13,7 +13,7 @@ On the left side of the question, click the gear and select _Add JavaScript..._
 
 Select everything in the box and clear it. The JavaScript box should be empty before pasting the code.
 
-Copy the JavaScript from the [file](https://github.com/pkmnct/qualtrics-google-map-lat-long/blob/master/QualtricsGoogleMapLatLong.js) and paste it in the box.
+Copy the JavaScript from the [file](./QualtricsGoogleMapLatLong.js) and paste it in the box.
 
 At the top of the pasted code, find the section labeled _Enter your Google Map API key in this variable._
 
