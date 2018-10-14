@@ -68,10 +68,16 @@ Qualtrics.SurveyEngine.addOnload(function() {
 
     // Need to be able to access the marker to update it later.
     var marker;
-    
+
+    // Check for existing question value and set starting marker accordingly
     if(dataBox.value != ""){
-        startPlace = new google.maps.LatLng(dataBox.value.evalJSON().lat,dataBox.value.evalJSON().long);
-        geocoderRequest = {'location': startPlace};
+		try{
+			startPlace = new google.maps.LatLng(dataBox.value.evalJSON().lat,dataBox.value.evalJSON().long);
+			geocoderRequest = {'location': startPlace};
+		} catch(err){
+			console.log("Unable to parse existing question value: " + err);
+		}
+		
     }
 
     if (enableAutocompleteField) {
