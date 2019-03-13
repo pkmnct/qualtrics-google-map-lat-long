@@ -1,10 +1,9 @@
 /*
  * Qualtrics Google Map Lat/Long Collector
+ * Version 1.4
  *
  * Written by George Walker <george@georgewwalker.com>
- * Get the latest from GitHub: https://github.com/pkmnct/qualtrics-google-map-lat-long/
- *
- * Last changed April 7, 2018.
+ * Get the latest from GitHub: https://github.com/pkmnct/qualtrics-google-map-lat-long/releases
  *
  * This JavaScript allows a Qualtrics user to collect a lat/long from a
  * Google Map in a survey. To use it, create a new "Text Entry" question,
@@ -17,30 +16,8 @@
 // Enter your Google Map API key in this variable:
 var googleMapAPIKey = "Your Key";
 
-
-// Load the Google Maps API if it is not already loaded.
-try {
-    if (typeof googleMapJS == 'undefined') {
-        var googleMapJS;
-        if (googleMapJS == null) {
-            googleMapJS = document.createElement('script');
-            if (googleMapAPIKey == "Your Key" || googleMapAPIKey == null) {
-                googleMapJS.src = 'https://maps.googleapis.com/maps/api/js' + "?libraries=places";
-            } else {
-                googleMapJS.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=' + googleMapAPIKey;
-            }
-            document.head.appendChild(googleMapJS);
-        }
-    } else {
-        console.log("Map already loaded.");
-    }
-} catch (err) {
-    console.log("Unable to load Google Maps API. Details: " + err);
-    alert("Unable to load Google Maps API.");
-}
-
 Qualtrics.SurveyEngine.addOnload(function() {
-    // Variables:
+    // --- User Variables, set these: ---
     var mapCenterLat = 39.1836;
     var mapCenterLng = -96.5717;
     var mapZoom = 16; // See https://developers.google.com/maps/documentation/javascript/tutorial#zoom-levels for help.
@@ -55,7 +32,9 @@ Qualtrics.SurveyEngine.addOnload(function() {
     var locationInputPadding = "15px";
 
     var enableAutocompleteField = true;
+    var invalidLocationAlertText = "Please choose a location from the search dropdown. If your location doesn't appear in the search, enter a nearby location and move the pin to the correct location.";
 
+    // --- End of User Variables ---
 
     // Get the data entry box and store it in a variable
     var dataBox = document.getElementById("QR~" + this.questionId);
@@ -112,10 +91,15 @@ Qualtrics.SurveyEngine.addOnload(function() {
                 // Whenever the inputs change, set the locationLatLong
                 google.maps.event.addListener(locationAutocomplete, 'place_changed', function() {
                     var place = locationAutocomplete.getPlace();
-                    var locationLatLong = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
-                    marker.setPosition(locationLatLong);
-                    map.panTo(locationLatLong);
-                    dataBox.value = '{"lat": "' + place.geometry.location.lat() + '", "long": "' + place.geometry.location.lng() + '"}';
+
+                    if (!place.geometry) {
+                        alert(invalidLocationAlertText);
+                    } else {
+                        var locationLatLong = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
+                        marker.setPosition(locationLatLong);
+                        map.panTo(locationLatLong);
+                        dataBox.value = '{"lat": "' + place.geometry.location.lat() + '", "long": "' + place.geometry.location.lng() + '"}';
+                    }
                 });
             }
 
@@ -154,3 +138,24 @@ Qualtrics.SurveyEngine.addOnload(function() {
     displayMap();
 
 });
+
+// Load the Google Maps API if it is not already loaded.
+try {
+    if (typeof googleMapJS == 'undefined') {
+        var googleMapJS;
+        if (googleMapJS == null) {
+            googleMapJS = document.createElement('script');
+            if (googleMapAPIKey == "Your Key" || googleMapAPIKey == null) {
+                googleMapJS.src = 'https://maps.googleapis.com/maps/api/js' + "?libraries=places";
+            } else {
+                googleMapJS.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=' + googleMapAPIKey;
+            }
+            document.head.appendChild(googleMapJS);
+        }
+    } else {
+        console.log("Map already loaded.");
+    }
+} catch (err) {
+    console.log("Unable to load Google Maps API. Details: " + err);
+    alert("Unable to load Google Maps API.");
+}
