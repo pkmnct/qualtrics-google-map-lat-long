@@ -4,7 +4,7 @@
 Create or open a Qualtrics survey. You must be able to add JavaScript to a question for this code to work (it will not work on trial accounts where this feature is unavailable).
 
 #### Making a Lat/Long Collection Question
-Start by making a new _Text Entry_ question. You can treat this question like you would any other (ex. require a response, change the title, etc.). It is recommended that you provide instructions in the question (see _Using the Question_ below).
+Start by making a new _Text Entry_ question. Ensure that the text type used is single line. You can treat this question like you would any other (ex. require a response, change the title, etc.). It is recommended that you provide instructions in the question (see _Using the Question_ below).
 
 On the left side of the question, click the gear and select _Add JavaScript..._
 
@@ -42,6 +42,9 @@ This is a known issue with earlier versions of the code. Update the code in **al
 
 ##### The map or autocomplete field search shows "_This page can't load Google Maps correctly_" or "_For development purposes only_"
 This usually indicates an issue with your API key. Make sure you set the API key variable. Check that the API key has access to both the Maps JavaScript API, and if you are using the Autocomplete Field, the Places API. If you are still having trouble, follow [Google's API key troubleshooting steps](https://developers.google.com/maps/documentation/javascript/error-messages).
+
+##### Responses are not saving
+Ensure that the text type used on your form is single line. [See Issue #6](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues/6).
 
 ##### I'm still having problems
 Make sure you are using the latest version of the code (see _Updating with New Releases_ above). If that doesn't help, see if an [issue](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues) has been created for the problem you are facing already. If not, you can [create a new issue](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues).
