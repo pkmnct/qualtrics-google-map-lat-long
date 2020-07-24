@@ -16,9 +16,14 @@
   },
   "keywords": [
     "Qualtrics",
-    "Google",
+    "Google Maps",
     "Maps",
-    "Survey"
+    "Survey",
+    "Lat",
+    "Long",
+    "Latitude",
+    "Longitude",
+    "Map"
   ],
   "author": "George W. Walker",
   "license": "MIT",
