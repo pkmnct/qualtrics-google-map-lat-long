@@ -6,6 +6,7 @@ interface Map {
       enabled: boolean;
       label: string;
       css?: string;
+      labelCss?: string;
       invalidLocationAlertText: string;
     },
     options: google.maps.MarkerOptions;
@@ -74,7 +75,11 @@ const initGoogleMapsQuestion = (
       // Make the label for the autocomplete
       const locationLabel = document.createElement('label');
       locationLabel.setAttribute('for', inputId);
+      locationLabel.setAttribute('id', `${inputId}-label`);
       locationLabel.setAttribute('class', 'QuestionText');
+      if (marker.autocomplete.labelCss) {
+        styles.append(`#${inputId}-label {${marker.autocomplete.labelCss}}`);
+      }
       locationLabel.append(marker.autocomplete.label || marker.options.title || `Marker ${marker.options.label ? marker.options.label : index}`);
       questionBody.appendChild(locationLabel);
 

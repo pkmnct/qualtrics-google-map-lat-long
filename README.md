@@ -66,6 +66,8 @@ initGoogleMapsQuestion(this.questionId, this.getQuestionContainer(), {
         enabled: true,
         // The label shown for the autocomplete field
         label: "Location for Marker 1",
+        // Styles for the label
+        labelCss: "padding-left: 0; padding-right: 0;",
         // Text to show if an invalid location is selected
         invalidLocationAlertText:
           "Please choose a location from the search dropdown. If your location doesn't appear in the search, enter a nearby location and move the marker to the correct location.",
@@ -88,6 +90,8 @@ initGoogleMapsQuestion(this.questionId, this.getQuestionContainer(), {
         enabled: true,
         // The label shown for the autocomplete field
         label: "Location for Marker 2",
+        // Styles for the label
+        labelCss: "padding-left: 0; padding-right: 0;",
         // Text to show if an invalid location is selected
         invalidLocationAlertText:
           "Please choose a location from the search dropdown. If your location doesn't appear in the search, enter a nearby location and move the marker to the correct location.",
