@@ -2,6 +2,8 @@
 
 Embed a customizable Google Map in your Qualtrics survey to collect location data
 
+![Screenshot of Example](doc/images/Example.png)
+
 ## Prerequisites
 
 ### Qualtrics
