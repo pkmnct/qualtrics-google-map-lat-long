@@ -1,6 +1,6 @@
 interface Map {
   css?: string;
-  options?: google.maps.MapOptions;
+  options: google.maps.MapOptions;
   markers?: {
     autocomplete?: {
       enabled: boolean;
@@ -65,7 +65,7 @@ const initGoogleMapsQuestion = (
     const mapMarker = new google.maps.Marker({
       ...marker.options,
       map: googleMap,
-      position: marker.options.position || map.options?.center,
+      position: marker.options.position || map.options.center,
     });
 
     if (marker.autocomplete?.enabled) {
