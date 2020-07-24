@@ -6,17 +6,17 @@ Embed a customizable Google Map in your Qualtrics survey to collect location dat
 
 ### Qualtrics
 
-Unfortunately Qualtrics [does not allow adding JavaScript to questions on free accounts](https://www.qualtrics.com/support/survey-platform/managing-your-account/trial-accounts/). In order to use Google Maps in your question, you must have a full account.
+Unfortunately Qualtrics does not allow adding JavaScript to questions on free accounts. In order to use Google Maps in your question, you must have a full account. See _[Trial Accounts](https://www.qualtrics.com/support/survey-platform/managing-your-account/trial-accounts/)_ on Qualtrics' support site for more information.
 
 ### Google Maps
 
-You must have a valid Google Maps JavaScript API key. If you want to use the autocomplete functionality, the API key must have access to the Places API as well. See _[Get Maps JavaScript API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)_ and _[Get Places API Key](https://developers.google.com/places/web-service/get-api-key)_.
+You must have a valid Google Maps JavaScript API key. If you want to use the autocomplete functionality, the API key must have access to the Places API as well. See _[Get Maps JavaScript API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)_ and _[Get Places API Key](https://developers.google.com/places/web-service/get-api-key)_ on Google's developer documentation.
 
 ## Getting Started
 
 ### Header Script
 
-The first step is to add the Google Maps API and this script to your survey's header. See _[Adding a Survey Header/Footer](https://www.qualtrics.com/support/survey-platform/survey-module/look-feel/general-look-feel-settings/#AddFooterHeader)_. When you get to the Rich Text Editor, click the <img src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.14.1/plugins/sourcedialog/icons/hidpi/sourcedialog.png" alt="Source Dialog" width="16"/> icon in the toolbar to display HTML. Paste the following at the top of the header:
+The first step is to add the Google Maps API and this script to your survey's header. See _[Adding a Survey Header/Footer](https://www.qualtrics.com/support/survey-platform/survey-module/look-feel/general-look-feel-settings/#AddFooterHeader)_ on Qualtrics' support site. When you get to the Rich Text Editor, click the <img src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.14.1/plugins/sourcedialog/icons/hidpi/sourcedialog.png" alt="Source Dialog" width="16"/> icon in the toolbar to display HTML. Paste the following at the top of the header:
 
 ```html
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={YOURKEYHERE}"></script>
@@ -27,19 +27,23 @@ Make sure to replace the `{YOURKEYHERE}` with your Google Maps API key.
 
 ### Adding a Map Question
 
-Once you have the Header Script added, you can create map questions. Start by making a new _Text Entry_ question. Ensure that the text type used is single line. You can treat this question like you would any other (ex. require a response, change the title, etc.). It is recommended that you provide instructions in the question (see _Using the Question_ below).
+Once you have the Header Script added, you can create map questions. Start by making a new _Text Entry_ question. Ensure that the text type used is single line. You can treat this question like you would any other (ex. require a response, change the title, etc.). It is recommended that you provide clear instructions to the responder in the question.
 
-On the left side of the question, click the gear and select _Add JavaScript..._ See _[Add JavaScript](https://www.qualtrics.com/support/survey-platform/survey-module/question-options/add-javascript/)_
+On the left side of the question, click the gear and select _Add JavaScript..._
 
-Select everything in the box and clear it. The JavaScript box should be empty before pasting the code. Copy the code from below and modify the options to adjust how the map will render.
+Copy the code from the example below and modify the options to adjust how the map will render. Paste this below the `/*Place your JavaScript here to run when the page loads*/` text in the _addOnload_ section of the _Edit Question JavaScript_ dialog.
+
+See _[Add JavaScript](https://www.qualtrics.com/support/survey-platform/survey-module/question-options/add-javascript/)_ on Qualtrics' support site for more information.
 
 #### Option Documentation
 
-- [Map Options](https://developers.google.com/maps/documentation/javascript/overview#MapOptions)
-- [Marker Options](https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerOptions)
-- Marker Autocomplete
+- [Map Options are documented on Google's developer documentation](https://developers.google.com/maps/documentation/javascript/overview#MapOptions)
+- [Marker Options are documented on Google's developer documentation](https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerOptions)
+- Marker Autocomplete Options
   - You can enable an autocomplete field to assist responders in finding a location. Responders can enter a location into this field and the map will snap its marker to that location. They can then fine-tune the response by dragging the marker to a specific location (such as a door to a building).
-  - See First example marker
+  - See the example markers below
+
+#### Example
 
 ```js
 initGoogleMapsQuestion(this.questionId, this.getQuestionContainer(), {
@@ -132,4 +136,4 @@ Ensure that the text type used on your form is single line. [See Issue #6](https
 
 ### I'm still having problems
 
-Make sure you are using the latest version of the code (see _Updating with New Releases_ above). If that doesn't help, see if an [issue](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues) has been created for the problem you are facing already. If not, you can [create a new issue](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues).
+Make sure you are using the latest version of the code. If that doesn't help, see if an [issue](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues) has been created for the problem you are facing already. If not, you can [create a new issue](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues).
