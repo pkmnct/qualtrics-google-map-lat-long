@@ -33,8 +33,8 @@ const initGoogleMapsQuestion = (
   // Find the QuestionBody to append to
   const questionBody = container.querySelector('.QuestionBody') || container;
 
-  // Initialize data storage
-  const value: { [key: number]: google.maps.LatLng } = {};
+  // Initialize data storage or load from existing data in field
+  const value: { [key: number]: google.maps.LatLng } = dataBox.value !== '' ? JSON.parse(dataBox.value) : {};
 
   // Function to set the dataBox to a lat/lng
   const setLatLng = (key: number, latLng: google.maps.LatLng) => {
@@ -65,7 +65,7 @@ const initGoogleMapsQuestion = (
     const mapMarker = new google.maps.Marker({
       ...marker.options,
       map: googleMap,
-      position: marker.options.position || map.options.center,
+      position: index in value ? value[index] : marker.options.position || map.options.center,
     });
 
     if (marker.autocomplete?.enabled) {
