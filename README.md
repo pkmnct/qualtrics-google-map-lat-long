@@ -1,50 +1,122 @@
-# Qualtrics Google Map Lat/Long Collector
+# Qualtrics Google Map
 
-#### Getting Started
-Create or open a Qualtrics survey. You must be able to add JavaScript to a question for this code to work (it will not work on trial accounts where this feature is unavailable).
+Embed a customizable Google Map in your Qualtrics survey to collect location data
 
-#### Making a Lat/Long Collection Question
-Start by making a new _Text Entry_ question. Ensure that the text type used is single line. You can treat this question like you would any other (ex. require a response, change the title, etc.). It is recommended that you provide instructions in the question (see _Using the Question_ below).
+## Prerequisites
 
-On the left side of the question, click the gear and select _Add JavaScript..._
+### Qualtrics
 
-Select everything in the box and clear it. The JavaScript box should be empty before pasting the code.
+Unfortunately Qualtrics [does not allow adding JavaScript to questions on free accounts](https://www.qualtrics.com/support/survey-platform/managing-your-account/trial-accounts/). In order to use Google Maps in your question, you must have a full account.
 
-Copy the JavaScript from the [file](https://github.com/pkmnct/qualtrics-google-map-lat-long/blob/master/QualtricsGoogleMapLatLong.js) and paste it in the box. You can also get older versions of the code from [releases](https://github.com/pkmnct/qualtrics-google-map-lat-long/releases).
+### Google Maps
 
-At the top of the pasted code, find the section labeled _Enter your Google Map API key in this variable._
+You must have a valid Google Maps JavaScript API key. If you want to use the autocomplete functionality, the API key must have access to the Places API as well. See _[Get Maps JavaScript API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)_ and _[Get Places API Key](https://developers.google.com/places/web-service/get-api-key)_.
 
-Replace the text _Your Key_ with your own API key. You must enable the Maps JavaScript API, and if you are using the Autocomplete Field, you must also enable the Places API (see Google's documentation: _[Get Maps JavaScript API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)_ and _[Get Places API Key](https://developers.google.com/places/web-service/get-api-key)_).
+## Getting Started
 
-Scroll down to the section labeled _Variables_ and edit the variables as needed.
+### Header Script
+
+The first step is to add the Google Maps API and this script to your survey's header. See _[Adding a Survey Header/Footer](https://www.qualtrics.com/support/survey-platform/survey-module/look-feel/general-look-feel-settings/#AddFooterHeader)_. When you get to the Rich Text Editor, click the ![Source Dialog](https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.14.1/plugins/sourcedialog/icons/hidpi/sourcedialog.png) icon in the toolbar to display HTML. Paste the following at the top of the header:
+
+```html
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={YOURKEYHERE}"></script>
+<script src="https://unpkg.com/qualtrics-google-map-lat-long@2.0.0/dist/QualtricsGoogleMap.min.js"></script>
+```
+
+Make sure to replace the `{YOURKEYHERE}` with your Google Maps API key.
+
+### Adding a Map Question
+
+Once you have the Header Script added, you can create map questions. Start by making a new _Text Entry_ question. Ensure that the text type used is single line. You can treat this question like you would any other (ex. require a response, change the title, etc.). It is recommended that you provide instructions in the question (see _Using the Question_ below).
+
+On the left side of the question, click the gear and select _Add JavaScript..._ See _[Add JavaScript](https://www.qualtrics.com/support/survey-platform/survey-module/question-options/add-javascript/)_
+
+Select everything in the box and clear it. The JavaScript box should be empty before pasting the code. Copy the code from below and modify the options to adjust how the map will render.
+
+#### Option Documentation
+
+- [Map Options](https://developers.google.com/maps/documentation/javascript/overview#MapOptions)
+- [Marker Options](https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerOptions)
+- Marker Autocomplete
+  - You can enable an autocomplete field to assist responders in finding a location. Responders can enter a location into this field and the map will snap its marker to that location. They can then fine-tune the response by dragging the marker to a specific location (such as a door to a building).
+  - See First example marker
+
+```js
+initGoogleMapsQuestion(this.questionId, this.getQuestionContainer(), {
+  // Map Options, set these! See Map Options in Option Documentation Section
+  options: {
+    center: {
+      lat: 39.1836,
+      lng: -96.5717,
+    },
+    zoom: 16,
+  },
+  // Marker Options, set these!
+  markers: [
+    // First Marker
+    {
+      // See Marker Options in Option Documentation Section
+      options: {
+        title: "Marker 1",
+        draggable: true,
+        label: "1",
+      },
+      autocomplete: {
+        // If true, an autocomplete will show.
+        enabled: true,
+        // The label shown for the autocomplete field
+        label: "Search Locations for Marker 1",
+        // Text to show if an invalid location is selected
+        invalidLocationAlertText:
+          "Please choose a location from the search dropdown. If your location doesn't appear in the search, enter a nearby location and move the marker to the correct location.",
+      },
+    },
+    // Second Marker
+    {
+      // See Marker Options in Option Documentation Section
+      options: {
+        title: "This is an example second marker. Rename or delete me.",
+        draggable: false,
+        position: {
+          lat: 39.2,
+          lng: -96.6,
+        },
+        label: "2",
+      },
+    },
+    // You can add more markers as well
+  ],
+});
+```
 
 Click Save. Test the question before sending out the survey. If you have any issues, see _Troubleshooting_ below.
 
-#### Using the Question
-By default, an autocomplete field is created to assist in finding a location. Responders can enter a location into this field and the map will snap its marker to that location. They can then fine-tune the response by dragging the marker to a specific location (such as a door to a building).
+## Data Collected
 
-If you would like to disable the autocomplete field, set the variable _enableAutocompleteField_ to _false_. Users can then just drag the pin to the desired location.
+The result is collected in the Qualtrics question field as a string representation of a JSON object. Each marker is represented by its index as the key in the object and the latitude and longitude as the value.
 
-The result is collected in the Qualtrics question field as a JSON object. It will be in the format as follows:
+### Example Single-Marker Question Data
 
-`{"lat": "38.8951", "long": "-77.0364"}`
+`{0:{"lat":38.8951,"long":-77.0364}}`
 
-#### Updating with New Releases
-When a [new version of the code is released](https://github.com/pkmnct/qualtrics-google-map-lat-long/releases), you should replace the code in all questions that use it. If different versions of the code are used in the same survey, you may run into issues. Make sure to note any variable changes you had made.
+### Example Multi-Marker Question Data
 
-#### Troubleshooting
+`{0:{"lat":38.8951,"long":-77.0364},1:{"lat":38.8951,"long":-77.0364},2:{"lat":38.8951,"long":-77.0364}}`
 
-##### The map doesn't show after adding it to the question
+## Troubleshooting
+
+### The map doesn't show after adding it to the question
+
 The map will only show up in the actual survey, not in the back-end of Qualtrics. Try to preview or take the survey.
 
-##### The map only shows on the first question
-This is a known issue with earlier versions of the code. Update the code in **all questions** that use it.
+### The map or autocomplete field search shows "_This page can't load Google Maps correctly_" or "_For development purposes only_"
 
-##### The map or autocomplete field search shows "_This page can't load Google Maps correctly_" or "_For development purposes only_"
 This usually indicates an issue with your API key. Make sure you set the API key variable. Check that the API key has access to both the Maps JavaScript API, and if you are using the Autocomplete Field, the Places API. If you are still having trouble, follow [Google's API key troubleshooting steps](https://developers.google.com/maps/documentation/javascript/error-messages).
 
-##### Responses are not saving
+### Responses are not saving
+
 Ensure that the text type used on your form is single line. [See Issue #6](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues/6).
 
-##### I'm still having problems
+### I'm still having problems
+
 Make sure you are using the latest version of the code (see _Updating with New Releases_ above). If that doesn't help, see if an [issue](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues) has been created for the problem you are facing already. If not, you can [create a new issue](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues).
