@@ -16,7 +16,7 @@ You must have a valid Google Maps JavaScript API key. If you want to use the aut
 
 ### Header Script
 
-The first step is to add the Google Maps API and this script to your survey's header. See _[Adding a Survey Header/Footer](https://www.qualtrics.com/support/survey-platform/survey-module/look-feel/general-look-feel-settings/#AddFooterHeader)_. When you get to the Rich Text Editor, click the ![Source Dialog](https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.14.1/plugins/sourcedialog/icons/hidpi/sourcedialog.png) icon in the toolbar to display HTML. Paste the following at the top of the header:
+The first step is to add the Google Maps API and this script to your survey's header. See _[Adding a Survey Header/Footer](https://www.qualtrics.com/support/survey-platform/survey-module/look-feel/general-look-feel-settings/#AddFooterHeader)_. When you get to the Rich Text Editor, click the <img src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.14.1/plugins/sourcedialog/icons/hidpi/sourcedialog.png" alt="Source Dialog" width="16"/> icon in the toolbar to display HTML. Paste the following at the top of the header:
 
 ```html
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={YOURKEYHERE}"></script>
