@@ -2,12 +2,11 @@
   "name": "qualtrics-google-map-lat-long",
   "version": "2.0.0",
   "description": "Embed a customizable Google Map in your Qualtrics survey to collect location data",
-  "main": "Header.js",
   "scripts": {
     "lint": "eslint src/**.ts",
     "lint:fix": "eslint src/**.ts --fix",
     "build": "rimraf ./dist && tsc && npm run uglify",
-    "uglify": "uglifyjs ./dist/QualtricsGoogleMap.js -o ./dist/QualtricsGoogleMap.min.js --compress --mangle --source-map \"content='./dist/QualtricsGoogleMap.js.map'\"",
+    "uglify": "uglifyjs ./dist/QualtricsGoogleMap.js -o ./dist/QualtricsGoogleMap.min.js --compress --mangle --source-map \"content='./dist/QualtricsGoogleMap.js.map',url='QualtricsGoogleMap.min.js.map'\"",
     "prepublishOnly": "npm run lint && npm run postversion && npm run build",
     "postversion": "cross-var node postVersion.js $npm_package_version"
   },
