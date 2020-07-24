@@ -65,7 +65,7 @@ initGoogleMapsQuestion(this.questionId, this.getQuestionContainer(), {
         // If true, an autocomplete will show.
         enabled: true,
         // The label shown for the autocomplete field
-        label: "Search Locations for Marker 1",
+        label: "Location for Marker 1",
         // Text to show if an invalid location is selected
         invalidLocationAlertText:
           "Please choose a location from the search dropdown. If your location doesn't appear in the search, enter a nearby location and move the marker to the correct location.",
@@ -76,12 +76,21 @@ initGoogleMapsQuestion(this.questionId, this.getQuestionContainer(), {
       // See Marker Options in Option Documentation Section
       options: {
         title: "This is an example second marker. Rename or delete me.",
-        draggable: false,
+        draggable: true,
         position: {
-          lat: 39.2,
-          lng: -96.6,
+          lat: 39.184,
+          lng: -96.572,
         },
         label: "2",
+      },
+      autocomplete: {
+        // If true, an autocomplete will show.
+        enabled: true,
+        // The label shown for the autocomplete field
+        label: "Location for Marker 2",
+        // Text to show if an invalid location is selected
+        invalidLocationAlertText:
+          "Please choose a location from the search dropdown. If your location doesn't appear in the search, enter a nearby location and move the marker to the correct location.",
       },
     },
     // You can add more markers as well
