@@ -35,5 +35,8 @@
     "rimraf": "^3.0.2",
     "typescript": "^3.9.7",
     "uglify-js": "^3.10.0"
-  }
+  },
+  "files": [
+    "dist/*"
+  ]
 }
