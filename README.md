@@ -39,7 +39,7 @@ See _[Add JavaScript](https://www.qualtrics.com/support/survey-platform/survey-m
 
 #### Option Documentation
 
-- [Map Options are documented on Google's developer documentation](https://developers.google.com/maps/documentation/javascript/overview#MapOptions)
+- Map Options are documented on Google's developer documentation. [center and zoom options are required](https://developers.google.com/maps/documentation/javascript/overview#MapOptions), and there are [many other options you can configure](https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions).
 - [Marker Options are documented on Google's developer documentation](https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerOptions)
 - Marker Autocomplete Options
   - You can enable an autocomplete field to assist responders in finding a location. Responders can enter a location into this field and the map will snap its marker to that location. They can then fine-tune the response by dragging the marker to a specific location (such as a door to a building).
