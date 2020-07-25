@@ -1,0 +1,48 @@
+{
+  "name": "qualtrics-google-map-lat-long",
+  "version": "2.0.0",
+  "description": "Embed a customizable Google Map in your Qualtrics survey to collect location data",
+  "scripts": {
+    "lint": "eslint src/**.ts",
+    "lint:fix": "eslint src/**.ts --fix",
+    "build": "rimraf ./dist && tsc && npm run uglify",
+    "uglify": "uglifyjs ./dist/QualtricsGoogleMap.js -o ./dist/QualtricsGoogleMap.min.js --compress --mangle --source-map \"content='./dist/QualtricsGoogleMap.js.map',url='QualtricsGoogleMap.min.js.map'\"",
+    "prepublishOnly": "npm run lint && npm run postversion && npm run build",
+    "postversion": "cross-var node postVersion.js $npm_package_version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pkmnct/qualtrics-google-map-lat-long.git"
+  },
+  "keywords": [
+    "Qualtrics",
+    "Google Maps",
+    "Maps",
+    "Survey",
+    "Lat",
+    "Long",
+    "Latitude",
+    "Longitude",
+    "Map"
+  ],
+  "author": "George W. Walker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pkmnct/qualtrics-google-map-lat-long/issues"
+  },
+  "homepage": "https://github.com/pkmnct/qualtrics-google-map-lat-long#readme",
+  "devDependencies": {
+    "@types/googlemaps": "^3.39.11",
+    "@typescript-eslint/eslint-plugin": "^3.7.0",
+    "@typescript-eslint/parser": "^3.7.0",
+    "cross-var": "^1.1.0",
+    "eslint": "^7.5.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.9.7",
+    "uglify-js": "^3.10.0"
+  },
+  "files": [
+    "dist/*",
+    "src/*"
+  ]
+}
