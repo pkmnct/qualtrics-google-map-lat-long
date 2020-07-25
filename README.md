@@ -44,6 +44,7 @@ See _[Add JavaScript](https://www.qualtrics.com/support/survey-platform/survey-m
 - Marker Autocomplete Options
   - You can enable an autocomplete field to assist responders in finding a location. Responders can enter a location into this field and the map will snap its marker to that location. They can then fine-tune the response by dragging the marker to a specific location (such as a door to a building).
   - See the example markers below
+- If there is only one marker, you can click on the map to set its location.
 
 #### Example
 
