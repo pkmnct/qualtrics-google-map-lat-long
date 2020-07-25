@@ -142,8 +142,12 @@ Make sure you are using the latest version of the code. If that doesn't help, se
 
 ## Migrating from 1.x
 
-Version 2.0 completely reworks this script. Instead of loading the entire code for each question, it is loaded once (and cached) for your whole survey. Not only does this improve the speed of your survey, but it also makes updating the script in the future much easier.
+If you have used older versions of this script in your survey, you have a few options to migrate. Version 2.0 changes the way the data is stored in the text field to support multiple map markers. If you have started collecting survey responses, it may be beneficial for all of the data collected to be in the same format. If that is the case, follow the _I have already collected survey responses_ section below. If you do not mind the survey results mixing data types, or have not started collecting data, see the _I have not started collecting survey responses_ section below.
 
-If you have used older versions of this script in your survey, they will conflict with the new version. You must either update each question in your survey, or continue using [the older version](https://github.com/pkmnct/qualtrics-google-map-lat-long/blob/4e9ab1288e6a030431b0e9eab6db56ba5b5062a2/README.md).
+### I have already collected survey responses
 
-Alternatively, you can mix 1.x and 2.0 questions, but you must remove the code that loads the Google Maps API in all older questions. This is the last code block pasted, below the _Load the Google Maps API if it is not already loaded_ comment.
+In this case, it is recommended that you continue using [the older version of the script](https://github.com/pkmnct/qualtrics-google-map-lat-long/blob/4e9ab1288e6a030431b0e9eab6db56ba5b5062a2/README.md). This will ensure that all of the data collected is in the same format. If you do not mind the survey results mixing data types, see the _I have not started collecting survey responses_ section below.
+
+### I have not started collecting survey responses
+
+In this case, it is recommended that you update all older questions to use the new script. You can also mix 1.x and 2.x questions, but you must remove the code that loads the Google Maps API in all 1.x questions. This is the last code block pasted, below the _Load the Google Maps API if it is not already loaded_ comment. If you do not want to update questions, you can still use [the older version of the script](https://github.com/pkmnct/qualtrics-google-map-lat-long/blob/4e9ab1288e6a030431b0e9eab6db56ba5b5062a2/README.md).
