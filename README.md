@@ -142,4 +142,8 @@ Make sure you are using the latest version of the code. If that doesn't help, se
 
 ## Migrating from 1.x
 
-If you have used older versions of this script, they will conflict with the new version. You must either update each question, or continue using [version 1.4](https://github.com/pkmnct/qualtrics-google-map-lat-long/blob/3e27547a2deae0af65baa2d491c7347d6ad3d85a/README.md).
+Version 2.0 completely reworks this script. Instead of loading the entire code for each question, it is loaded once (and cached) for your whole survey. Not only does this improve the speed of your survey, but it also makes updating the script in the future much easier.
+
+If you have used older versions of this script in your survey, they will conflict with the new version. You must either update each question in your survey, or continue using [the older version](https://github.com/pkmnct/qualtrics-google-map-lat-long/blob/4e9ab1288e6a030431b0e9eab6db56ba5b5062a2/README.md).
+
+Alternatively, you can mix 1.x and 2.0 questions, but you must remove the code that loads the Google Maps API in all older questions. This is the last code block pasted, below the _Load the Google Maps API if it is not already loaded_ comment.
