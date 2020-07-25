@@ -139,3 +139,7 @@ Ensure that the text type used on your form is single line. [See Issue #6](https
 ### I'm still having problems
 
 Make sure you are using the latest version of the code. If that doesn't help, see if an [issue](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues) has been created for the problem you are facing already. If not, you can [create a new issue](https://github.com/pkmnct/qualtrics-google-map-lat-long/issues).
+
+## Migrating from 1.x
+
+If you have used older versions of this script, they will conflict with the new version. You must either update each question, or continue using [version 1.4](https://github.com/pkmnct/qualtrics-google-map-lat-long/blob/3e27547a2deae0af65baa2d491c7347d6ad3d85a/README.md).
