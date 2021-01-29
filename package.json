@@ -1,6 +1,6 @@
 {
   "name": "qualtrics-google-map-lat-long",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Embed a customizable Google Map in your Qualtrics survey to collect location data",
   "scripts": {
     "lint": "eslint src/**.ts",
