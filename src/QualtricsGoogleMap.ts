@@ -50,10 +50,10 @@ const initGoogleMapsQuestion = (
   const mapObject = document.createElement('div');
   mapObject.setAttribute('id', `${id}-map`);
   if (map.css) {
-    styles.append(`#${id}-map {${map.css}}`);
+    styles.innerText += `#${id}-map {${map.css}}`;
     mapObject.setAttribute('style', map.css);
   } else {
-    styles.append(`#${id}-map {height: 300px;}`);
+    styles.innerText += `#${id}-map {height: 300px;}`;
   }
   questionBody.appendChild(mapObject);
 
@@ -78,9 +78,9 @@ const initGoogleMapsQuestion = (
       locationLabel.setAttribute('id', `${inputId}-label`);
       locationLabel.setAttribute('class', 'QuestionText');
       if (marker.autocomplete.labelCss) {
-        styles.append(`#${inputId}-label {${marker.autocomplete.labelCss}}`);
+        styles.innerText += `#${inputId}-label {${marker.autocomplete.labelCss}}`;
       }
-      locationLabel.append(marker.autocomplete.label || marker.options.title || `Marker ${marker.options.label ? marker.options.label : index}`);
+      locationLabel.innerText = marker.autocomplete.label || marker.options.title || `Marker ${marker.options.label ? marker.options.label : index}`;
       questionBody.appendChild(locationLabel);
 
       // Make the autocomplete
@@ -88,7 +88,7 @@ const initGoogleMapsQuestion = (
       locationInput.setAttribute('id', inputId);
       locationInput.setAttribute('class', 'InputText');
       if (marker.autocomplete.css) {
-        styles.append(`#${id}-${index}-locationInput {${marker.autocomplete.css}}`);
+        styles.innerText += `#${id}-${index}-locationInput {${marker.autocomplete.css}}`;
       }
       questionBody.appendChild(locationInput);
 

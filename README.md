@@ -22,7 +22,7 @@ The first step is to add the Google Maps API and this script to your survey's he
 
 ```html
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={YOURKEYHERE}"></script>
-<script src="https://unpkg.com/qualtrics-google-map-lat-long@2.0.0/dist/QualtricsGoogleMap.min.js"></script>
+<script src="https://unpkg.com/qualtrics-google-map-lat-long@2.0.1/dist/QualtricsGoogleMap.min.js"></script>
 ```
 
 Make sure to replace the `{YOURKEYHERE}` with your Google Maps API key.
